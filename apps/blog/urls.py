@@ -1,14 +1,21 @@
 """URL blog — apps/blog/urls.py"""
+
 from django.urls import path
+
 from . import views
 
-app_name = 'blog'
+app_name = "blog"
 
 urlpatterns = [
-    path('',                          views.PostListView.as_view(),    name='post-list'),
-    path('create/',                   views.PostCreateView.as_view(),  name='post-create'),
-    path('<slug:slug>/',              views.PostDetailView.as_view(),  name='post-detail'),
-    path('<slug:slug>/edit/',         views.PostUpdateView.as_view(),  name='post-update'),
-    path('<slug:slug>/delete/',       views.PostDeleteView.as_view(),  name='post-delete'),
-    path('categoria/<slug:slug>/',    views.CategoryDetailView.as_view(), name='category-detail'),
+    path("", views.PostListView.as_view(), name="post-list"),
+    path("about/", views.about, name="about"),
+    path("create/", views.PostCreateView.as_view(), name="post-create"),
+    path("<slug:slug>/", views.PostDetailView.as_view(), name="post-detail"),
+    path("<slug:slug>/edit/", views.PostUpdateView.as_view(), name="post-update"),
+    path("<slug:slug>/delete/", views.PostDeleteView.as_view(), name="post-delete"),
+    path(
+        "categoria/<slug:slug>/",
+        views.CategoryDetailView.as_view(),
+        name="category-detail",
+    ),
 ]

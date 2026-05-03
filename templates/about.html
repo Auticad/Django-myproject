@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+
+{% block title %}About — MyProject{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-lg-8">
+
+    <h1 class="h3 mb-1">Chi siamo</h1>
+    <p class="text-muted small mb-4">Ultimo aggiornamento: {% now "d/m/Y" %}</p>
+
+    <div class="card border-0 shadow-sm mb-4">
+      <div class="card-body p-4">
+        <h2 class="h5 mb-3">Il progetto</h2>
+        <p>
+          MyProject è un'applicazione web full-stack costruita con
+          <strong>Django 5.2 LTS</strong>, pensata come base solida
+          per blog, portafogli e piattaforme di contenuto.
+          Espone anche una <a href="/api/docs/">REST API documentata</a>
+          consumabile da qualsiasi client.
+        </p>
+        <p>
+          Il codice sorgente è disponibile su
+          <a href="https://github.com/TUO-USERNAME/myproject" target="_blank" rel="noopener">
+            GitHub
+          </a>.
+        </p>
+      </div>
+    </div>
+
+    <div class="card border-0 shadow-sm mb-4">
+      <div class="card-body p-4">
+        <h2 class="h5 mb-3">Stack tecnologico</h2>
+        <div class="row g-3">
+          {% for item in stack %}
+            <div class="col-md-6">
+              <div class="d-flex align-items-start gap-2">
+                <span class="badge bg-dark mt-1">{{ item.layer }}</span>
+                <div>
+                  <strong>{{ item.tech }}</strong>
+                  <p class="text-muted small mb-0">{{ item.note }}</p>
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+
+    {% if authors %}
+    <div class="card border-0 shadow-sm mb-4">
+      <div class="card-body p-4">
+        <h2 class="h5 mb-3">Autori</h2>
+        <div class="row g-3">
+          {% for author in authors %}
+            <div class="col-md-6">
+              <div class="d-flex align-items-center gap-3">
+                {% if author.avatar %}
+                  <img src="{{ author.avatar.url }}"
+                       class="rounded-circle"
+                       width="56" height="56"
+                       alt="{{ author.get_full_name }}">
+                {% else %}
+                  <div class="rounded-circle bg-secondary d-flex align-items-center
+                              justify-content-center text-white fw-bold"
+                       style="width:56px;height:56px;font-size:1.2rem;">
+                    {{ author.username|first|upper }}
+                  </div>
+                {% endif %}
+                <div>
+                  <strong>{{ author.get_full_name|default:author.username }}</strong>
+                  {% if author.bio %}
+                    <p class="text-muted small mb-0">{{ author.bio|truncatechars:80 }}</p>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+    {% endif %}
+
+    <div class="card border-0 shadow-sm">
+      <div class="card-body p-4">
+        <h2 class="h5 mb-3">Statistiche</h2>
+        <div class="row text-center g-3">
+          <div class="col-4">
+            <div class="display-6 fw-bold text-primary">{{ stats.post_count }}</div>
+            <div class="text-muted small">Post pubblicati</div>
+          </div>
+          <div class="col-4">
+            <div class="display-6 fw-bold text-primary">{{ stats.category_count }}</div>
+            <div class="text-muted small">Categorie</div>
+          </div>
+          <div class="col-4">
+            <div class="display-6 fw-bold text-primary">{{ stats.author_count }}</div>
+            <div class="text-muted small">Autori</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+{% endblock %}
