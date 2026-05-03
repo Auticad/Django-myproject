@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block title %}Registrati — MyProject{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center mt-5">
+  <div class="col-md-6">
+    <div class="card shadow-sm border-0">
+      <div class="card-body p-4">
+        <h1 class="h4 mb-4 text-center">Crea account</h1>
+        <form method="post">
+          {% csrf_token %}
+          {% for field in form %}
+            <div class="mb-3">
+              {{ field.label_tag }}
+              {{ field }}
+              {% if field.help_text %}
+                <div class="form-text">{{ field.help_text }}</div>
+              {% endif %}
+              {% if field.errors %}
+                <div class="text-danger small">{{ field.errors.0 }}</div>
+              {% endif %}
+            </div>
+          {% endfor %}
+          <div class="d-grid">
+            <button type="submit" class="btn btn-success">Registrati</button>
+          </div>
+        </form>
+        <hr>
+        <p class="text-center small">
+          Hai già un account? <a href="{% url 'login' %}">Accedi</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

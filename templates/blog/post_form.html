@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %}{% if form.instance.pk %}Modifica{% else %}Nuovo{% endif %} Post{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-lg-8">
+    <h1 class="h3 mb-4">
+      {% if form.instance.pk %}Modifica post{% else %}Nuovo post{% endif %}
+    </h1>
+
+    <form method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      {% for field in form %}
+        <div class="mb-3">
+          {{ field.label_tag }}
+          {{ field }}
+          {% if field.help_text %}
+            <div class="form-text">{{ field.help_text }}</div>
+          {% endif %}
+          {% if field.errors %}
+            <div class="invalid-feedback d-block">
+              {% for error in field.errors %}{{ error }}{% endfor %}
+            </div>
+          {% endif %}
+        </div>
+      {% endfor %}
+      <div class="d-flex gap-2">
+        <button type="submit" class="btn btn-primary">Salva</button>
+        <a href="{% url 'blog:post-list' %}" class="btn btn-secondary">Annulla</a>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,23 @@
+/* main.css — stili base MyProject */
+
+:root {
+  --bs-body-font-family: 'Segoe UI', system-ui, sans-serif;
+}
+
+body {
+  background-color: #f8f9fa;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+main { flex: 1; }
+
+.card { transition: box-shadow 0.15s ease; }
+.card:hover { box-shadow: 0 4px 12px rgba(0,0,0,.1) !important; }
+
+.post-body p { margin-bottom: 1.2rem; line-height: 1.8; }
+
+/* HTMX loading indicator */
+.htmx-indicator { display: none; }
+.htmx-request .htmx-indicator { display: inline-block; }
